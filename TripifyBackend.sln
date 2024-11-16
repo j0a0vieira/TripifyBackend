@@ -1,0 +1,16 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TripifyBackend.API", "TripifyBackend.API\TripifyBackend.API.csproj", "{1F7095C4-BCBB-4D21-AE1C-D15FF62B2C07}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1F7095C4-BCBB-4D21-AE1C-D15FF62B2C07}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F7095C4-BCBB-4D21-AE1C-D15FF62B2C07}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F7095C4-BCBB-4D21-AE1C-D15FF62B2C07}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F7095C4-BCBB-4D21-AE1C-D15FF62B2C07}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
