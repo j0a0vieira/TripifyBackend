@@ -1,12 +1,13 @@
 namespace TripifyBackend.DOMAIN.Models;
 
-public class Place
+public class DeserializePlace
 {
     public Guid? Id { get; set; }
     public string name { get; set; }
     public string timezone { get; set; }
     public Geocodes geocodes { get; set; }
     public Location location { get; set; }
+    public List<Categories> categories { get; set; }
     
     public class Geocodes
     {
@@ -27,9 +28,15 @@ public class Place
         public string postcode { get; set; }
         public string region { get; set; }
     }
+
+    public class Categories
+    {
+        public Guid? ID { get; set; }
+        public string name { get; set; }
+    }
 }
 
 public class Results
 {
-    public List<Place> results { get; set; }
+    public List<DeserializePlace> results { get; set; }
 }
