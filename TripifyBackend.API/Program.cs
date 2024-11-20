@@ -1,8 +1,11 @@
+using System.Text.Json.Serialization;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using NuGet.Protocol.Core.Types;
 using TripifyBackend.API.Mappings;
+using TripifyBackend.APPLICATION.Services;
 using TripifyBackend.DOMAIN.Interfaces.Repository;
+using TripifyBackend.DOMAIN.Interfaces.Service;
 using TripifyBackend.INFRA.DBContext;
 using Repository = TripifyBackend.INFRA.Repository;
 
@@ -21,6 +24,13 @@ builder.Services.AddDbContext<TripifyDBContext>(options =>
 builder.Services.AddAutoMapper(typeof(GeneralProfile));
 
 builder.Services.AddScoped<IRepository, Repository>();
+builder.Services.AddScoped<IService, TripService>();
+
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+    });
 
 var app = builder.Build();
 

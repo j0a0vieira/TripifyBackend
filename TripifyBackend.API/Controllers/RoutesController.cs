@@ -6,6 +6,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TripifyBackend.DOMAIN.Interfaces.Repository;
+using TripifyBackend.DOMAIN.Interfaces.Service;
 using TripifyBackend.DOMAIN.Models;
 using Results = TripifyBackend.DOMAIN.Models.Results;
 
@@ -13,15 +14,17 @@ namespace TripifyBackend.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class FillDatabase : ControllerBase
+    public class RoutesController : ControllerBase
     {
         private readonly IMapper _mapper;
         private readonly IRepository _repo;
+        private readonly IService _service;
         
-        public FillDatabase(IMapper mapper, IRepository repo)
+        public RoutesController(IMapper mapper, IRepository repo, IService service)
         {
             _mapper = mapper;
             _repo = repo;
+            _service = service;
         }
 
         [HttpGet]
@@ -53,14 +56,34 @@ namespace TripifyBackend.API.Controllers
                 var placesDomain = _mapper.Map<List<PlaceDomain>>(place.results);
                 var list = await _repo.FillDatabase(placesDomain);
                 
-                
-                
-                return Ok(place);
+                return Ok(placesDomain);
             }
             else
             {
                 return StatusCode((int)response.StatusCode, await response.Content.ReadAsStringAsync());
             }
+        }
+
+        [HttpGet]
+        [Route("tripRoute")]
+        public async Task<IActionResult> GetTripRoute([FromQuery] string lat, [FromQuery] string lon, 
+            [FromQuery] int tripDuration, 
+            [FromQuery] double maxDistance, 
+            [FromQuery] List<string> categories, 
+            [FromQuery] bool includeHotel,
+            [FromQuery] string travelMode,
+            [FromQuery] string targetGroup,
+            [FromQuery] List<string> mandatoryToVisit,
+            [FromQuery] string? budget
+            )
+        {
+            var tripLocations = await _service.GetTripRoute(lat, lon, tripDuration, maxDistance, categories, includeHotel, travelMode, targetGroup, mandatoryToVisit, budget);
+            if (_service.GetErrors().Any())
+            {
+                return await ErrorHandler.HandleErrorAsync(_service.GetErrors().First());
+            }
+
+            return Ok();
         }
 
     }

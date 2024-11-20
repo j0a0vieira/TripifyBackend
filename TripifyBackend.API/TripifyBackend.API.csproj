@@ -19,10 +19,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Controllers\" />
-    </ItemGroup>
-
-    <ItemGroup>
+      <ProjectReference Include="..\TripifyBackend.APPLICATION\TripifyBackend.APPLICATION.csproj" />
       <ProjectReference Include="..\TripifyBackend.DOMAIN\TripifyBackend.DOMAIN.csproj" />
       <ProjectReference Include="..\TripifyBackend.INFRA\TripifyBackend.INFRA.csproj" />
     </ItemGroup>

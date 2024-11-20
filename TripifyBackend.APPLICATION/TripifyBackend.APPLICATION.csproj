@@ -6,4 +6,8 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\TripifyBackend.DOMAIN\TripifyBackend.DOMAIN.csproj" />
+    </ItemGroup>
+
 </Project>
