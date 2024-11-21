@@ -20,10 +20,19 @@ public class ErrorHandler
                     Field = ErrorResponse.FieldTypeEnum.NotApplicable
                 });
                 break;
+            case DomainError.StatusCodeEnum.InternalServerError:
+                result = new BadRequestObjectResult(new ErrorResponse
+                {
+                    StatusCode = ErrorResponse.StatusCodeEnum.InternalServerError,
+                    Detail = domainError.Detail,
+                    Type = domainError.Type == DomainError.ErrorTypeEnum.DatabaseConnection ? ErrorResponse.ErrorTypeEnum.DatabaseConnection : ErrorResponse.ErrorTypeEnum.Unknown,
+                    Field = ErrorResponse.FieldTypeEnum.NotApplicable
+                });
+                break;
             default:
                 result = new ObjectResult(new ErrorResponse
                 {
-                    StatusCode = ErrorResponse.StatusCodeEnum.InternalError,
+                    StatusCode = ErrorResponse.StatusCodeEnum.InternalServerError,
                     Detail = "An unexpected error occurred.",
                     Type = ErrorResponse.ErrorTypeEnum.Unknown,
                     Field = ErrorResponse.FieldTypeEnum.NotApplicable

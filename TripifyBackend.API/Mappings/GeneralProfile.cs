@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using TripifyBackend.DOMAIN.Models;
 using System;
 using System.Collections.Generic;
+using TripifyBackend.API.DTO_s;
 using TripifyBackend.INFRA.Entities;
 
 namespace TripifyBackend.API.Mappings
@@ -41,6 +42,9 @@ namespace TripifyBackend.API.Mappings
 
             CreateMap<PlaceDomain, PlaceDB>();
             CreateMap<CategoriesDomain, CategoriesDB>();
+            CreateMap<GetTripRouteRequest, GetTripRouteRequestDomain>();
+            CreateMap<CategoriesDomain, CategoriesResponse>();
+            CreateMap<CategoriesDB, CategoriesDomain>();
         }
     }
 }

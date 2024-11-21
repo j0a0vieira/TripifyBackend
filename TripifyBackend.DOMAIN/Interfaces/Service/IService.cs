@@ -6,16 +6,8 @@ public interface IService
 {
     void FillDatabase(string lat, string lon);
 
-    Task<List<PlaceDomain>?> GetTripRoute(string lat, string lon,
-        int tripDuration,
-        double maxDistance,
-        List<string> categories,
-        bool includeHotel,
-        string travelMode,
-        string targetGroup,
-        List<string> mandatoryToVisit,
-        string budget
-    );
+    Task<List<PlaceDomain>?> GetTripRoute(GetTripRouteRequestDomain request);
+    Task<List<CategoriesDomain>> GetAllCategories();
 
     List<DomainError> GetErrors();
 }

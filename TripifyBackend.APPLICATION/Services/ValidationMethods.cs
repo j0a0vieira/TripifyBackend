@@ -51,7 +51,7 @@ public static class ValidationMethods
     public static bool ValidateTripDuration(int tripDuration, List<DomainError> errors)
     {
         if (tripDuration >= 1) return true;
-        errors.Add( new DomainError
+        errors.Add(new DomainError
         {
             StatusCode = DomainError.StatusCodeEnum.BadRequest,
             Detail = "Trip hours are invalid",

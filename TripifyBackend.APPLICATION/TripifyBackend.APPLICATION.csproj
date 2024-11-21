@@ -8,6 +8,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\TripifyBackend.DOMAIN\TripifyBackend.DOMAIN.csproj" />
+      <ProjectReference Include="..\TripifyBackend.INFRA\TripifyBackend.INFRA.csproj" />
     </ItemGroup>
 
 </Project>

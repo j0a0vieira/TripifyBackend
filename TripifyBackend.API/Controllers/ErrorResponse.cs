@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace TripifyBackend.API.Controllers;
 
@@ -12,7 +13,8 @@ public  class ErrorResponse
         public enum ErrorTypeEnum
         {
             Unknown,
-            ValidationError
+            ValidationError,
+            DatabaseConnection
         }
 
         public enum FieldTypeEnum
@@ -22,13 +24,16 @@ public  class ErrorResponse
             Longitude,
             TripDuration,
             Coordinates,
+            MaxDistance,
+            Categories,
             NotApplicable
         }
 
+        [JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
         public enum StatusCodeEnum
         {
-            NotFound,
-            BadRequest,
-            InternalError
+            NotFound = 404,
+            BadRequest = 400,
+            InternalServerError = 500
         }
 }

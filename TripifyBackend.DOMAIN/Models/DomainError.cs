@@ -12,7 +12,8 @@ public class DomainError
     public enum ErrorTypeEnum
     {
         Unknown,
-        ValidationError
+        ValidationError,
+        DatabaseConnection
     }
 
     public enum FieldTypeEnum
@@ -23,12 +24,14 @@ public class DomainError
         TripDuration,
         Coordinates,
         MaxDistance,
-        Categories
+        Categories,
+        NotApplicable
     }
 
     public enum StatusCodeEnum
     {
         NotFound,
         BadRequest,
+        InternalServerError
     }
 }

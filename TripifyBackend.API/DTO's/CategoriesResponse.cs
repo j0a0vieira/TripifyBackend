@@ -1,6 +1,6 @@
-namespace TripifyBackend.DOMAIN.Models;
+namespace TripifyBackend.API.DTO_s;
 
-public class CategoriesDomain
+public class CategoriesResponse
 {
     public Guid? ID { get; set; }
     public string Name { get; set; }

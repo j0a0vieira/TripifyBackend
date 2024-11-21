@@ -1,16 +1,18 @@
 using System.Text.Json;
+using TripifyBackend.DOMAIN.Interfaces.Repository;
 using TripifyBackend.DOMAIN.Interfaces.Service;
 using TripifyBackend.DOMAIN.Models;
+using TripifyBackend.INFRA.RepositoryExceptions;
 
 namespace TripifyBackend.APPLICATION.Services;
 
 public class TripService : IService
 {
     private new List<DomainError> _errorList = [];
-    
-    public TripService()
+    private readonly IRepository _repository;
+    public TripService(IRepository repository)
     {
-        
+        _repository = repository;
     }
 
     public List<DomainError> GetErrors()
@@ -45,24 +47,45 @@ public class TripService : IService
         }
     }
 
-    public async Task<List<PlaceDomain>?> GetTripRoute(string lat, string lon, 
-        int tripDuration, //given in hours
-        double maxDistance, //given in kms
-        List<string> categories, 
-        bool includeHotel,
-        string travelMode, 
-        string targetGroup, 
-        List<string> mandatoryToVisit, 
-        string budget)
+    public async Task<List<PlaceDomain>?> GetTripRoute(GetTripRouteRequestDomain request)
     {
-        if (!ValidationMethods.IsLatAndLonValid(lat, lon, _errorList)) { return null; }
-        if (!ValidationMethods.ValidateTripDuration(tripDuration, _errorList)) { return null; }
-        if (!ValidationMethods.ValidateMaxDistance(maxDistance, _errorList)) { return null; }
-        if (!ValidationMethods.ValidateCategories(categories, _errorList)) { return null; }
+        if (!ValidationMethods.ValidateTripDuration(request.TripDuration, _errorList)) { return null; }
+        if (!ValidationMethods.ValidateMaxDistance(request.MaxDistance, _errorList)) { return null; }
+        if (!ValidationMethods.ValidateCategories(request.categories, _errorList)) { return null; }
         
-        
-
-
         return null;
+    }
+    
+    public async Task<List<CategoriesDomain>> GetAllCategories()
+    {
+        try
+        {
+            var categories = await _repository.GetAllCategories();
+            return categories;
+        }
+        catch (SqlExceptionCustom e)
+        {
+            _errorList.Add(new DomainError
+            {
+                StatusCode = e.DomainError.StatusCode,
+                Type = e.DomainError.Type,
+                Field = e.DomainError.Field,
+                Detail = e.DomainError.Detail,
+            });
+            
+            return null;
+        }
+        catch (Exception e)
+        {
+            _errorList.Add(new DomainError
+            {
+                StatusCode = DomainError.StatusCodeEnum.InternalServerError,
+                Type = DomainError.ErrorTypeEnum.Unknown,
+                Field = DomainError.FieldTypeEnum.NotApplicable,
+                Detail = "Unknown Internal Server Error"
+            });
+
+            return null;
+        }
     }
 }
