@@ -13,27 +13,36 @@ public class Repository : IRepository
 {
     private readonly TripifyDBContext _context;
     private readonly IMapper _mapper;
-    
+
     public Repository(TripifyDBContext context, IMapper mapper)
     {
-        _context = context;
-        _mapper = mapper;
+        _context = context ?? throw new ArgumentNullException(nameof(context));
+        _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
     }
-    
+
     public async Task<List<PlaceDomain>> FillDatabase(List<PlaceDomain> places)
     {
         var addedPlaces = new List<PlaceDB>();
-        foreach (var placeDomain in places)
+
+        try
         {
-            var db = _mapper.Map<PlaceDB>(placeDomain);
-            if (await VerifyDuplicatePlace(db) == false)
+            foreach (var placeDomain in places)
             {
-                await _context.Places.AddAsync(db);
-                addedPlaces.Add(db);
+                var db = _mapper.Map<PlaceDB>(placeDomain);
+
+                if (!await VerifyDuplicatePlace(db))
+                {
+                    await _context.Places.AddAsync(db);
+                    addedPlaces.Add(db);
+                }
             }
         }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
 
-        
         await _context.SaveChangesAsync();
         return places;
     }
@@ -43,10 +52,9 @@ public class Repository : IRepository
         try
         {
             var categoriesList = await _context.Categories.ToListAsync();
-            
             return _mapper.Map<List<CategoriesDomain>>(categoriesList);
         }
-        catch (SqlException e)
+        catch (SqlException)
         {
             throw new SqlExceptionCustom
             {
@@ -54,19 +62,15 @@ public class Repository : IRepository
                 {
                     StatusCode = DomainError.StatusCodeEnum.InternalServerError,
                     Type = DomainError.ErrorTypeEnum.DatabaseConnection,
-                    Detail = "Looks like database is temporarily unavailable.",
+                    Detail = "Looks like the database is temporarily unavailable.",
                     Field = DomainError.FieldTypeEnum.NotApplicable
-                },
-                
+                }
             };
         }
     }
 
     private async Task<bool> VerifyDuplicatePlace(PlaceDB place)
     {
-        var placeFind = await _context.Places
-            .FirstOrDefaultAsync(p => p.Name.Equals(place.Name));
-        
-        return placeFind != null ? true : false;
+        return await _context.Places.AnyAsync(p => p.Name == place.Name);
     }
 }

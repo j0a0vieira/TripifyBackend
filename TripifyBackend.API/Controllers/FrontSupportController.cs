@@ -18,7 +18,8 @@ namespace TripifyBackend.API.Controllers
             _mapper = mapper;
             _service = service;
         }
-
+        
+        //add a controller that returns "hello world"ionResult Get()"hello world";
         [HttpGet]
         [Route("categoryList")]
         public async Task<IActionResult> GetTripRoute()
@@ -30,6 +31,15 @@ namespace TripifyBackend.API.Controllers
             }
 
             return Ok(categories);
+        }
+
+        [HttpGet]
+        [Route("fillDatabase")]
+        public async Task<IActionResult> FillDatabase(string lat, string lon)
+        {
+            var addedPlaces = await _service.FillDatabase(lat, lon);
+
+            return Ok(addedPlaces);
         }
     }
 }
