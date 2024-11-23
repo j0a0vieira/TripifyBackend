@@ -266,6 +266,16 @@ public class Repository : IRepository
         var mandatoryPlaces = await _context.Places
             .Where(p => userPreferences.MandatoryToVisit.Any(pattern => EF.Functions.Like(p.Name, pattern))) 
             .ToListAsync();
+        
+        if (userPreferences.Categories.Any())
+        {
+            places = await _context.Places
+                .Include(p => p.Categories)
+                .Where(p => p.Latitude >= minLatitude && p.Latitude <= maxLatitude &&
+                            p.Longitude >= minLongitude && p.Longitude <= maxLongitude &&
+                            p.Categories.Any(c => c.ID.HasValue && userPreferences.Categories.Contains(c.ID.ToString())))
+                .ToListAsync();
+        }
 
         mandatoryPlaces.ForEach(mtv => places.Add(mtv));
         userPreferences.MandatoryToVisit.Clear();
