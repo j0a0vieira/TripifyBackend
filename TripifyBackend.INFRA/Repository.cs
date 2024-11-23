@@ -291,6 +291,12 @@ public class Repository : IRepository
             userPreferences.DestinationLon,
             userPreferences);
         
+        openAIRequest.UserPreferences.MandatoryToVisit.Clear();
+        foreach (var mtv in userPreferences.MandatoryToVisit)
+        {
+            openAIRequest.UserPreferences.MandatoryToVisit.Add(mtv);
+        }
+        
        var requestBody = new
         {
             model = "gpt-4o-mini",
@@ -299,7 +305,7 @@ public class Repository : IRepository
                 new()
                 {
                     role = "system",
-                    content = "Plan a road trip with ordered POIs between a start and end point, using preferences and coordinates for efficient routing, adding places on the return if BackHome is true, and if the mandatoryToVisit contains ID's that are in the provided place list, you MUST add them to ALL TRIPS. Ensure trips are 3+ hours, dividing into trips with 4-10 unique places each, and returning ONLY JSON with POI IDs: { \"results\": [ { \"trip1\": [ { \"id\": \"poi1\" }, { \"id\": \"poi2\" } ] }, { \"trip2\": [ { \"id\": \"poi3\" }, { \"id\": \"poi4\" } ] } ], \"totalTrips\": x }",
+                    content = "Plan a road trip with ordered POIs between a start and end point, using preferences and coordinates for efficient routing, adding places on the return if BackHome is true, and if the mandatoryToVisit contains ID's that are in the provided place list, you MUST add the mandatory places id to ALL TRIPS. Ensure trips are 3+ hours, dividing into trips with 4-10 unique places each, and returning ONLY JSON with POI IDs: { \"results\": [ { \"trip1\": [ { \"id\": \"poi1\" }, { \"id\": \"poi2\" } ] }, { \"trip2\": [ { \"id\": \"poi3\" }, { \"id\": \"poi4\" } ] } ], \"totalTrips\": x }",
                 },
                 new()
                 {
