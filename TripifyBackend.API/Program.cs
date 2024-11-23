@@ -29,6 +29,16 @@ builder.Services.AddAutoMapper(typeof(GeneralProfile));
 builder.Services.AddScoped<IRepository, Repository>();
 builder.Services.AddScoped<IService, TripService>();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: "AllowAllPolicy",
+        policy  =>
+        {
+            policy.AllowAnyMethod();
+            policy.AllowAnyOrigin();
+        });
+});
+
 builder.Services.AddControllers()
     .AddJsonOptions(options =>
     {
@@ -45,6 +55,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors("AllowAllPolicy");
 
 app.UseAuthorization();
 

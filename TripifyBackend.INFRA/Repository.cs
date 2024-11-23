@@ -171,7 +171,23 @@ public class Repository : IRepository
             Guid.Parse("bfcaaf24-48f9-41a3-9f40-08dd0b8c954a"), //pt restaurant
             Guid.Parse("838ff12e-989a-4a49-9f60-08dd0b8c954a"), //night club
             Guid.Parse("d79ec876-1e88-413e-9faf-08dd0b8c954a"), //pub
-            Guid.Parse("91834716-28bf-4d86-9fa9-08dd0b8c954a")
+            Guid.Parse("91834716-28bf-4d86-9fa9-08dd0b8c954a"),
+            Guid.Parse("b2901a3a-4fd0-49d6-9f87-08dd0b8c954a"),
+            Guid.Parse("508746f3-0db8-41fb-9f14-08dd0b8c954a"),
+            Guid.Parse("595af998-f29f-4fa2-9f42-08dd0b8c954a"),
+            Guid.Parse("394dfdd7-3afd-49d7-9fe1-08dd0b8c954a"), //chinese restaurant
+            Guid.Parse("e0c9cc26-c074-43a1-9f27-08dd0b8c954a"), //restaurant
+            Guid.Parse("400d03ad-cc7b-46bf-9fc1-08dd0b8c954a"), //bistro
+            Guid.Parse("e74321c2-d3f7-4514-9f6f-08dd0b8c954a"), //pizzaria
+            Guid.Parse("a505a34a-ac21-40bb-9f43-08dd0b8c954a"), //tapas
+            Guid.Parse("e5153fb2-7226-4d92-9f83-08dd0b8c954a"), //brewery
+            Guid.Parse("c3ed42aa-7577-4327-9f6b-08dd0b8c954a"), //italian restaurant
+            Guid.Parse("5c5b0a9a-7209-4009-9fa7-08dd0b8c954a"), // gastro pub
+            Guid.Parse("d5c30740-351a-4866-9faa-08dd0b8c954a"), //auto service ?????
+            Guid.Parse("13aef974-3b67-4c5d-9f63-08dd0b8c954a"), //agro service
+            
+            
+            
         };
 
         var places = await _context.Places
@@ -210,7 +226,7 @@ public class Repository : IRepository
                 new()
                 {
                     role = "system",
-                    content = "Plan a road trip with ordered Points of Interest (POIs) between a starting point and an ending point. Use provided user preferences and geographical coordinates to calculate an efficient route that minimizes unnecessary turns. If there are more than 10 POIs total, divide the route into as many trips as needed, with each trip containing between 4 to 10 POIs. You do not need to use all the places, only the ones necessary for efficient routing. Aim to generate as many trips as required, not limited to just 2. Return the output strictly in JSON format and include only the IDs of the POIs as follows: { \"results\": [ { \"trip1\": [ { \"id\": \"poi1\" }, { \"id\": \"poi2\" } ] }, { \"trip2\": [ { \"id\": \"poi3\" }, { \"id\": \"poi4\" } ] } ], \"totalTrips\": x }",
+                    content = "Plan a road trip with ordered Points of Interest (POIs) between a starting point and an ending point. Use provided user preferences and geographical coordinates to calculate an efficient route that minimizes unnecessary turns. If there are more than 10 POIs total, divide the route into as many trips as needed, with each trip containing between 4 to 10 POIs. Each trip CANNOT contain less then 2 places. You do not need to use all the places, but you can. Aim to generate as many trips as required, not limited to just 2. Return the output strictly in JSON format and include only the IDs of the POIs as follows: { \"results\": [ { \"trip1\": [ { \"id\": \"poi1\" }, { \"id\": \"poi2\" } ] }, { \"trip2\": [ { \"id\": \"poi3\" }, { \"id\": \"poi4\" } ] } ], \"totalTrips\": x }",
                 },
                 new()
                 {
