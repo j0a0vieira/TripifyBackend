@@ -1,6 +1,6 @@
-namespace TripifyBackend.API.DTO_s;
+namespace TripifyBackend.INFRA.Entities.OpenAI;
 
-public class GetTripRouteRequest
+public class OpenAIUserPreferences
 {
     public float StartingLat { get; set; }
     public float StartingLon { get; set; }
@@ -9,5 +9,7 @@ public class GetTripRouteRequest
     public DateTime StartDate { get; set; }
     public DateTime EndDate { get; set; }
     public List<string> Categories { get; set; }
+    public string TargetGroup { get; set; }
     public List<string> MandatoryToVisit { get; set; }
+    public string Budget { get; set; }
 }

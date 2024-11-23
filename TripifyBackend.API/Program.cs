@@ -1,3 +1,4 @@
+using System.Runtime.InteropServices;
 using System.Text.Json.Serialization;
 using Amazon.Lambda.RuntimeSupport;
 using AutoMapper;
@@ -7,6 +8,7 @@ using TripifyBackend.API.Mappings;
 using TripifyBackend.APPLICATION.Services;
 using TripifyBackend.DOMAIN.Interfaces.Repository;
 using TripifyBackend.DOMAIN.Interfaces.Service;
+using TripifyBackend.INFRA;
 using TripifyBackend.INFRA.DBContext;
 using Repository = TripifyBackend.INFRA.Repository;
 

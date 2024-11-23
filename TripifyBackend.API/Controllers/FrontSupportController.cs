@@ -19,7 +19,6 @@ namespace TripifyBackend.API.Controllers
             _service = service;
         }
         
-        //add a controller that returns "hello world"ionResult Get()"hello world";
         [HttpGet]
         [Route("categoryList")]
         public async Task<IActionResult> GetTripRoute()
@@ -41,5 +40,14 @@ namespace TripifyBackend.API.Controllers
 
             return Ok(addedPlaces);
         }
+        
+        /*[HttpGet]
+        [Route("testAWSBedrock")]
+        public async Task<IActionResult> TestAWSBedrock()
+        {
+            var text = await _externalRepository.GetAWSBedrockPlan();
+
+            return Ok(text);
+        }*/
     }
 }

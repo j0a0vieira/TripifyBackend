@@ -6,7 +6,7 @@ public interface IService
 {
     Task<List<PlaceDomain>> FillDatabase(string lat, string lon);
 
-    Task<List<PlaceDomain>?> GetTripRoute(GetTripRouteRequestDomain request);
+    Task<List<TripDomain>> GetTripRoute(DomainUserPreferences request);
     Task<List<CategoriesDomain>> GetAllCategories();
 
     List<DomainError> GetErrors();

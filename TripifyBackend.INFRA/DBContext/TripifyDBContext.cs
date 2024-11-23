@@ -22,10 +22,15 @@ public class TripifyDBContext : DbContext
             .HasMany(p => p.Categories)
             .WithMany(c => c.Places)
             .UsingEntity<Dictionary<string, object>>(
-                "PlaceCategory", 
+                "PlaceCategory",
                 pc => pc.HasOne<CategoriesDB>().WithMany().HasForeignKey("CategoryId"),
                 pc => pc.HasOne<PlaceDB>().WithMany().HasForeignKey("PlaceId")
             );
+
+        // Ensure category name uniqueness
+        modelBuilder.Entity<CategoriesDB>()
+            .HasIndex(c => c.Name)
+            .IsUnique(); // Prevent duplicate categories by name
     }
-    
+
 }

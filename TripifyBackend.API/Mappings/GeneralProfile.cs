@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using TripifyBackend.API.DTO_s;
 using TripifyBackend.INFRA.Entities;
+using TripifyBackend.INFRA.Entities.OpenAI;
 
 namespace TripifyBackend.API.Mappings
 {
@@ -21,7 +22,6 @@ namespace TripifyBackend.API.Mappings
                 {
                     var categoriesDomain = context.Mapper.Map<List<CategoriesDomain>>(src.categories);
 
-                    // Criando o PlaceDomain
                     var placeDomain = new PlaceDomain
                     {
                         Id = Guid.NewGuid(),
@@ -40,11 +40,15 @@ namespace TripifyBackend.API.Mappings
                     return placeDomain;
                 });
 
-            CreateMap<PlaceDomain, PlaceDB>();
+            CreateMap<PlaceDomain, PlaceDB>().ReverseMap();
             CreateMap<CategoriesDomain, CategoriesDB>();
-            CreateMap<GetTripRouteRequest, GetTripRouteRequestDomain>();
+            CreateMap<GetTripRouteRequest, DomainUserPreferences>();
             CreateMap<CategoriesDomain, CategoriesResponse>();
             CreateMap<CategoriesDB, CategoriesDomain>();
+            CreateMap<DomainUserPreferences, OpenAIUserPreferences>();
+            CreateMap<TripDB, TripDomain>();
+            CreateMap<TripDomain, TripDTO>();
+            CreateMap<PlaceDomain, PlacesDTO>();
         }
     }
 }

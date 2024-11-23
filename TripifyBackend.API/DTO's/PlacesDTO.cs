@@ -1,10 +1,9 @@
-namespace TripifyBackend.INFRA.Entities;
+namespace TripifyBackend.API.DTO_s;
 
-public class PlaceDB
+public class PlacesDTO
 {
     public Guid Id { get; set; }
     public string Name { get; set; }
-    public string? Timezone { get; set; }
     public float Latitude { get; set; }
     public float Longitude { get; set; }
     public string? FormattedAddress { get; set; }
@@ -12,5 +11,4 @@ public class PlaceDB
     public string? Locality { get; set; }
     public string? Postcode { get; set; }
     public string? Region { get; set; }
-    public List<CategoriesDB> Categories { get; set; } = new List<CategoriesDB>();
 }

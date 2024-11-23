@@ -9,6 +9,7 @@ using TripifyBackend.API.DTO_s;
 using TripifyBackend.DOMAIN.Interfaces.Repository;
 using TripifyBackend.DOMAIN.Interfaces.Service;
 using TripifyBackend.DOMAIN.Models;
+using TripifyBackend.INFRA.Entities;
 using Results = TripifyBackend.DOMAIN.Models.Results;
 
 namespace TripifyBackend.API.Controllers
@@ -26,17 +27,24 @@ namespace TripifyBackend.API.Controllers
             _service = service;
         }
 
-        [HttpGet]
+        [HttpPost]
         [Route("tripRoute")]
         public async Task<IActionResult> GetTripRoute([FromBody] GetTripRouteRequest userPreferences)
         {
-            var tripLocations = await _service.GetTripRoute(_mapper.Map<GetTripRouteRequestDomain>(userPreferences));
+            var tripLocations = await _service.GetTripRoute(_mapper.Map<DomainUserPreferences>(userPreferences));
+            var response = new GetTripRouteResponse
+            {
+                Trips = _mapper.Map<List<TripDTO>>(tripLocations),
+                StartDate = userPreferences.StartDate,
+                EndDate = userPreferences.EndDate,
+            };
+            
             if (_service.GetErrors().Count != 0)
             {
                 return await ErrorHandler.HandleErrorAsync(_service.GetErrors().First());
             }
 
-            return Ok();
+            return Ok(response);
         }
     }
 }
