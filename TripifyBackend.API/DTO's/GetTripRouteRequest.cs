@@ -10,4 +10,6 @@ public class GetTripRouteRequest
     public DateTime EndDate { get; set; }
     public List<string> Categories { get; set; }
     public List<string> MandatoryToVisit { get; set; }
+    public bool BackHome { get; set; }
+
 }
