@@ -1,8 +1,8 @@
-Este projeto é um desafio para apresentar no Geek-a-thon 2024 em Leira.
-Construido por João Vieira e Diogo Leonardo, este projeto visa em fornecer aos utilizadores um roteiro guia através de inteligência artificial, cujo objetivo visa em ajudar os utilizadores finais a aproveitar o tempo ao máximo quando vão visitar um novo local.
+Este projeto é um desafio para apresentar no Geekathon 2024 em Leira.
+Desenvolvido por João Vieira e Diogo Leonardo, este projeto visa fornecer aos utilizadores um roteiro guia através de inteligência artificial, cujo objetivo é ajudar os utilizadores finais a aproveitar o tempo ao máximo quando vão visitar um novo local e sem perder tempo no seu planeamento.
 
-O backend foi realizado em .NET Core 8, fornecendo uma API para o frontend conseguir obter informação.
-Usámos ainda a API da OpenAI para conseguir-mos ter acesso ao modelo gpt-4o-mini da OpenAI, que faz a escolha dos locais com base nas preferências de utilizador.
+O backend foi realizado em .NET Core 8, fornecendo uma API para o frontend conseguir obter informação, enviar requests e servir de ponte entre a IA e o frontend.
+Usámos ainda a API da OpenAI para conseguir-mos ter acesso ao modelo gpt-4o-mini da OpenAI, que faz a escolha dos locais forcecidos pelo backend, com base nas preferências de utilizador.
 
 O projeto está alojado em Azure no seguinte dominio: https://tripifybackend-g4ebf9g0ftapf6h5.westeurope-01.azurewebsites.net/api/
 
