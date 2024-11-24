@@ -315,7 +315,8 @@ public class Repository : IRepository
                 new()
                 {
                     role = "system",
-                    content = "Plan a road trip with ordered POIs between a start and end point, using preferences and coordinates for efficient routing, adding places on the return if BackHome is true, and if the mandatoryToVisit contains ID's that are in the provided place list, you MUST add the mandatory places id to ALL TRIPS. Ensure trips are 3+ hours, dividing into trips with 4-10 unique places each, and returning ONLY JSON with POI IDs: { \"results\": [ { \"trip1\": [ { \"id\": \"poi1\" }, { \"id\": \"poi2\" } ] }, { \"trip2\": [ { \"id\": \"poi3\" }, { \"id\": \"poi4\" } ] } ], \"totalTrips\": x }",
+                    content = "I will give you various places with the id, latitute and longitude for position measuring and aditional user preferences that are MANDATORY to obede. Plan a road trip beggining at user preference StartingLat and StartingLon place, and add locations in the path to the destination placed identified by DestinationLat and DestinationLon also from the user preferences. This locations must be ordered so that the user never go backwards, example: if users destination is in norte, he must not go south. If BackHome option is set to true, the last place you choose must be the starting place, identified by StartingLat and StartingLon from the user preferences. If the mandatoryToVisit is filled, it is MANDATORY to add the contained places in the trip. Ensure trips have a minimum of 4 and a maximum 10 unique locations and returning ONLY JSON with location IDs. The output format must be ONLY: { \"results\": [ { \"trip1\": [ { \"id\": \"poi1\" }, { \"id\": \"poi2\" } ] }, { \"trip2\": [ { \"id\": \"poi3\" }, { \"id\": \"poi4\" } ] } ], \"totalTrips\"}. Obeding 100% to the previous rules generate 3 to 5 trips with the provided specifications",
+                
                 },
                 new()
                 {
@@ -326,7 +327,7 @@ public class Repository : IRepository
                         userPreferences = openAIRequest.UserPreferences 
                     }) 
                 }
-            }
+            },
         };
 
         var jsonRequestBody = JsonConvert.SerializeObject(requestBody);
